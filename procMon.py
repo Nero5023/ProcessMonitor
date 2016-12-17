@@ -1,5 +1,5 @@
 import controller
-import psutil # http://code.google.com/p/psutil/
+import psutil
 import wx
 
 from ObjectListView import ObjectListView, ColumnDefn
@@ -21,9 +21,13 @@ class MainPanel(wx.Panel):
         self.col_w = {"name":175,
                       "pid":50,
                       "exe":300,
-                      "user":175,
+                      "user":90,
                       "cpu":60,
-                      "mem":75}
+                      "mem":75,
+                      "rss":120,
+                      "vms":120,
+                      "pfaults":120,
+                      "pageins":120}
                 
         self.procmonOlv = ObjectListView(self, style=wx.LC_REPORT|wx.SUNKEN_BORDER)
         self.procmonOlv.Bind(wx.EVT_LIST_COL_CLICK, self.onColClick)
@@ -94,6 +98,10 @@ class MainPanel(wx.Panel):
             cw["user"] = self.procmonOlv.GetColumnWidth(3)
             cw["cpu"] = self.procmonOlv.GetColumnWidth(4)
             cw["mem"] = self.procmonOlv.GetColumnWidth(5)
+            cw["rss"] = self.procmonOlv.GetColumnWidth(6)
+            cw["vms"] = self.procmonOlv.GetColumnWidth(7)
+            cw["pfaults"] = self.procmonOlv.GetColumnWidth(8)
+            cw["pageins"] = self.procmonOlv.GetColumnWidth(9)
             
         cols = [
             ColumnDefn("name", "left", cw["name"], "name"),
@@ -102,6 +110,10 @@ class MainPanel(wx.Panel):
             ColumnDefn("username", "left", cw["user"], "user"),
             ColumnDefn("cpu", "left", cw["cpu"], "cpu"),
             ColumnDefn("mem", "left", cw["mem"], "mem"),
+            ColumnDefn("Resident Set Size", "left", cw["rss"], "rss"),
+            ColumnDefn("Virtual Memory Size", "left", cw["vms"], "vms"),
+            ColumnDefn("Number of page faults", "left", cw["pfaults"], "pfaults"),
+            ColumnDefn("Number of actual pageins", "left", cw["pageins"], "pageins"),
             #ColumnDefn("description", "left", 200, "desc")
             ]
         self.procmonOlv.SetColumns(cols)

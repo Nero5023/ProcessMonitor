@@ -5,7 +5,7 @@ class Process(object):
     """
 
     #----------------------------------------------------------------------
-    def __init__(self, name, pid, exe, user, cpu, mem, desc=None):
+    def __init__(self, name, pid, exe, user, cpu, mem, rss, vms, pfaults, pageins):
         """Constructor"""
         self.name = name
         self.pid = pid
@@ -13,3 +13,7 @@ class Process(object):
         self.user = user
         self.cpu = cpu
         self.mem = mem
+        self.rss = rss
+        self.vms = vms
+        self.pfaults = pfaults
+        self.pageins = pageins

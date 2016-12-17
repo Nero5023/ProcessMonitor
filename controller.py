@@ -29,19 +29,17 @@ class ProcThread(Thread):
             try:
                 cpu = p.cpu_percent()
                 mem = p.memory_percent()
-                new_proc = Process(p.name,
-                                   str(p.pid),
-                                   p.exe,
-                                   p.username,
-                                   str(cpu),
-                                   str(mem)
-                                   )
+                memory_info = p.memory_info()
                 new_proc = Process(p.name(),
                                    str(p.pid),
                                    p.exe(),
                                    p.username(),
                                    str(cpu),
-                                   str(mem)
+                                   str(mem),
+                                   memory_info.rss/1024/1024,
+                                   memory_info.vms/1024/1024,
+                                   memory_info.pfaults,
+                                   memory_info.pageins
                                    )
                 procs.append(new_proc)
                 cpu_percent += cpu
