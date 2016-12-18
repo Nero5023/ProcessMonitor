@@ -5,11 +5,11 @@ import wx
 from ObjectListView import ObjectListView, ColumnDefn
 from wx.lib.pubsub import setupkwargs
 from wx.lib.pubsub import pub as Publisher
-########################################################################
+
 class MainPanel(wx.Panel):
     """"""
 
-    #----------------------------------------------------------------------
+    # init
     def __init__(self, parent):
         """Constructor"""
         wx.Panel.__init__(self, parent=parent)
@@ -32,7 +32,6 @@ class MainPanel(wx.Panel):
         self.procmonOlv = ObjectListView(self, style=wx.LC_REPORT|wx.SUNKEN_BORDER)
         self.procmonOlv.Bind(wx.EVT_LIST_COL_CLICK, self.onColClick)
         self.procmonOlv.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onSelect)
-        #self.procmonOlv.Select
         self.setProcs()
         
         endProcBtn = wx.Button(self, label="End Process")
@@ -43,13 +42,12 @@ class MainPanel(wx.Panel):
         mainSizer.Add(endProcBtn, 0, wx.ALIGN_RIGHT|wx.ALL, 5)
         self.SetSizer(mainSizer)
         
-        # check for updates every 15 seconds
         self.timer = wx.Timer(self)
         self.Bind(wx.EVT_TIMER, self.update, self.timer)
         self.update("")
         self.setProcs()
         
-        # create a pubsub receiver
+        # subscribe a pubsub receiver
         Publisher.subscribe(self.updateDisplay, "update")
         
     #----------------------------------------------------------------------
@@ -151,7 +149,7 @@ class MainFrame(wx.Frame):
     #----------------------------------------------------------------------
     def __init__(self):
         """Constructor"""
-        wx.Frame.__init__(self, None, title="PyProcMon", size=(1024, 768))
+        wx.Frame.__init__(self, None, title="procMon", size=(1200, 768))
         panel = MainPanel(self)
         
         # set up the statusbar

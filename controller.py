@@ -1,4 +1,3 @@
-########################################################################
 import psutil
 import wx
 
@@ -6,7 +5,7 @@ from model import Process
 from threading import Thread
 from wx.lib.pubsub import setupkwargs
 from wx.lib.pubsub import pub as Publisher
-########################################################################
+
 class ProcThread(Thread):
     """
     Gets all the process information we need as psutil isn't very fast
